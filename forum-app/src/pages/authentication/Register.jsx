@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
 import AuthKit from '../../data/AuthKit';
+import Form from '../../components/form/Form';
 import RegisterForm from '../../components/register/RegisterForm';
 
 export default function Register() {
@@ -16,15 +17,15 @@ export default function Register() {
 		country: 1
 	});
 
-	const authKit = new AuthKit();
 	let history = useHistory();
 
-	const handleOnClick = () => {
+	const handleOnClick = (e) => {
+		e.preventDefault();
 		handleRegister(formData);
 	};
 
 	const handleRegister = formData => {
-		authKit
+		AuthKit
 			.register(formData)
 			.then(res => res)
 			.then(data => {
@@ -39,7 +40,7 @@ export default function Register() {
 	};
 
 	const fetchCountries = () => {
-		authKit
+		AuthKit
 			.getCountries()
 			.then(res => res.json())
 			.then(data => setCountries(data.results));
@@ -51,15 +52,16 @@ export default function Register() {
 
 	return (
 		<>
-			{console.log(error)}
+			<Form>
 			{countries && (
 				<div>
+					<h3>Create an account to get started</h3>
 					<RegisterForm formData={formData} setFormData={setFormData} countries={countries} />
 
 					<button onClick={handleOnClick}>Register</button>
 					<Link to='/'>
 						{' '}
-						<button>Already have an account? Login</button>
+						<p>Already have an account? Login</p>
 					</Link>
 					{error &&
 						Object.entries(error).map((err, index) => {
@@ -71,6 +73,7 @@ export default function Register() {
 						})}
 				</div>
 			)}
+			</Form>
 		</>
 	);
 }

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { PostContext } from './contexts/PostContext';
-import { UserContext } from './contexts/UserContext';
+import { AuthContext } from './contexts/AuthContext';
 
 import AuthKit from './data/AuthKit';
 import CreatePost from './pages/posts/Create';
@@ -14,24 +13,27 @@ import PostList from './pages/posts/List';
 import PostDetail from './pages/posts/Detail';
 import Register from './pages/authentication/Register';
 
-
 function App() {
-	const [auth, setAuth] = useState(true);
+	const [auth, setAuth] = useState(false);
 	const [postData, setPostData] = useState(null);
-  const [userData, setUserData] = useState(null);
-  
-  const authKit = new AuthKit();
 
-//  if(!authKit.getToken()) {
-//     setAuth(false)
-//   } else {
-//     setAuth(true)
-//   }
+	let history = useHistory();
+
+	useEffect(() => {
+		if (AuthKit.getToken()) {
+			setAuth(true);
+			history.push('/home');
+		} else {
+			setAuth(false);
+		}
+	}, []);
+
+	console.log(auth);
 
 	return (
 		<>
 			<PostContext.Provider value={{ postData, setPostData }}>
-				<UserContext.Provider value={{ userData, setUserData }}>
+				<AuthContext.Provider value={{ auth, setAuth }}>
 					<Switch>
 						<GuardedRoute auth={auth} exact path='/posts/create' component={CreatePost}></GuardedRoute>
 						<GuardedRoute auth={auth} exact path='/posts/:id' component={PostDetail}></GuardedRoute>
@@ -40,8 +42,8 @@ function App() {
 						<Route exact path='/register' component={Register}></Route>
 						<Route exact path='/' component={Login}></Route>
 					</Switch>
-			  </UserContext.Provider>
-      </PostContext.Provider>
+				</AuthContext.Provider>
+			</PostContext.Provider>
 		</>
 	);
 }

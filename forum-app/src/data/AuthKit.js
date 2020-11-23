@@ -5,12 +5,13 @@ const CREATE_URL = `${ROOT_URL}/api/v1/auth/users/`;
 const COUNTRIES_URL = `${ROOT_URL}/api/v1/countries/`;
 const ME_URL = `${ROOT_URL}/api/v1/me/`;
 
-export default class {
-	login(email, password) {
+export default class Authkit {
+	static login(email, password) {
 		const payload = {
 			email,
 			password
 		};
+		console.log(payload);
 		return fetch(AUTH_URL, {
 			method: 'POST',
 			body: JSON.stringify(payload),
@@ -18,7 +19,7 @@ export default class {
 		});
 	}
 
-	register(payload) {
+	static register(payload) {
         return fetch(CREATE_URL, {
             method: 'POST',
             body: JSON.stringify(payload),
@@ -26,36 +27,36 @@ export default class {
         })
     }
     
-    getCountries() {
+    static getCountries() {
         return fetch(COUNTRIES_URL, {
             headers: this.getPublicHeaders()
         })
     }
 
-	getMe() {
+	static getMe() {
 		return fetch(ME_URL, {
 			headers: this.getPrivateHeaders()
 		});
 	}
 
-	getPrivateHeaders() {
+	static getPrivateHeaders() {
 		return {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${this.getToken()}`
 		};
 	}
 
-	getPublicHeaders() {
+	static getPublicHeaders() {
 		return {
 			'Content-Type': 'application/json'
 		};
 	}
 
-	setToken(token) {
+	static setToken(token) {
 		localStorage.setItem('JWT_APP', token);
 	}
 
-	getToken() {
+	static getToken() {
 		return localStorage.getItem('JWT_APP');
 	}
 }

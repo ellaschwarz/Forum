@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import {AuthContext} from '../../contexts/AuthContext'
 
 import AuthKit from '../../data/AuthKit';
+import Form from '../../components/form/Form';
 import LoginForm from '../../components/login/LoginForm';
 //import Form from '../../components/Form';
 
@@ -10,24 +12,30 @@ export default function Login() {
 	const [passwordInput, setPasswordInput] = useState('');
 	const [token, setToken] = useState(null);
 	const [authStatus, setAuthStatus] = useState(false)
-	const authKit = new AuthKit();
+	const {setAuth} = useContext(AuthContext);
+	// const authKit = new AuthKit();
 
     let history = useHistory();
     
-	const handleOnClick = () => {
+	const handleOnClick = (e) => {
+		e.preventDefault();
 		handleLogin(emailInput, passwordInput);
     };
     
 	const handleLogin = (email, password) => {
-		authKit
+		console.log("enter handleLogin")
+		AuthKit
 			.login(email, password)
 			.then(res => res.json())
 			.then(data => {
+				console.log(data)
 				setToken(data.token);
-				authKit.setToken(data.token);
+				AuthKit.setToken(data.token);
 				if (data.token) {
+					setAuth(true)
 					history.push('/home');
-				} else if(!data.token) {
+				} else {
+					history.push('/');
 					setAuthStatus('Unable to login with provided credentials')
 				}
 			});
@@ -35,7 +43,9 @@ export default function Login() {
 
 	return (
 		<>
-			<p>This is login</p>
+			<Form>
+				<div>
+				<h3>Login to your account</h3>
 			<LoginForm
 				emailInput={emailInput}
 				passwordInput={passwordInput}
@@ -45,9 +55,11 @@ export default function Login() {
 			<button onClick={handleOnClick}>Login</button>
 			<Link to='/register'>
 				{' '}
-				<button>New here? Register an account</button>
+				<p>New here? Register an account</p>
 			</Link>
 			{authStatus && <p>{authStatus}</p>}
+			</div>
+			</Form>
 		</>
 	);
 }
