@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 //import omg from '../background.png'
- export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
  
 
   * {
@@ -31,18 +31,24 @@ import { createGlobalStyle } from 'styled-components';
  }
 
  button {
-   background-color: ${({ theme }) => theme.colors.darkBlue};
-   color: ${({ theme }) => theme.colors.gray};
+    background-color: ${({ theme }) => theme.colors.darkBlue};
+    color: ${({ theme }) => theme.colors.gray};
     border-radius: 30px;
     padding: 10px;
     outline: none;
     width: 100%;
+    border: 1px solid ${({ theme }) => theme.colors.darkBlue};
  }
 
- input, select {
+ button:hover {
+   cursor: pointer;
+ }
+
+ input, select, textarea {
    padding: 10px;
    margin: 5px;
-   width: 100%;
+   min-width: 100%;
+   max-width: 100%;
    outline: none;
    border: none;
    border-bottom: 1px solid ${({ theme }) => theme.colors.gray};

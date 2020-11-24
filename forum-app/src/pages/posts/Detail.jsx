@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import {ButtonStyle} from '../../components/post/post.style';
 import ForumKit from '../../data/ForumKit';
 import PostDetail from '../../components/post/PostDetail';
 
@@ -17,6 +18,7 @@ export default function Detail(props) {
 			.then(res => res.json())
 			.then(data => {
 				setPostDetailData(data);
+				console.log(data);
 			});
 	};
 
@@ -27,14 +29,18 @@ export default function Detail(props) {
 	return (
 	
 		<>
-		<div>
+
 			<Link to='/posts'>
 				{' '}
-				<button>Back</button>
+				<ButtonStyle>⬅</ButtonStyle>
 			</Link>
+			<Link to='/posts/create'>
+			{' '}
+			<ButtonStyle>✎</ButtonStyle>
+		</Link>
 					 {postDetailData && <PostDetail postDetailData={postDetailData} />} 
 	
-		</div>
+
 		</>
 	);
 }

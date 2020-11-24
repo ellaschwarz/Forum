@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import { Link, useHistory } from 'react-router-dom';
+
+import { ButtonStyle, FormContainer, PostButton, PostContainer, PostFormPage } from '../../components/post/post.style';
 import { PostContext } from '../../contexts/PostContext';
 
 import ForumKit from '../../data/ForumKit';
@@ -29,8 +30,8 @@ export default function Create() {
 			.createPost(formData)
 			.then(res => res.json())
 			.then(data => {
-          history.push('/posts');
-					setPostData([...postData, formData]);
+				history.push('/posts');
+				setPostData([...postData, formData]);
 			});
 	};
 
@@ -47,16 +48,20 @@ export default function Create() {
 
 	return (
 		<>
-    			<Link to='/posts'>
+			<Link to='/posts'>
 				{' '}
-				<button>Back</button>
+				<ButtonStyle>⬅</ButtonStyle>
 			</Link>
-			{categories && (
-				<div>
-					<PostForm formData={formData} setFormData={setFormData} categories={categories} setError={setError} />
-					<button onClick={handleOnClick}>Post</button>
-				</div>
-			)}
+			<PostFormPage>
+				{categories && (
+					<PostContainer>
+						<FormContainer>
+							<PostForm formData={formData} setFormData={setFormData} categories={categories} setError={setError} />
+						</FormContainer>
+						<PostButton onClick={handleOnClick}>Post</PostButton>
+					</PostContainer>
+				)}
+			</PostFormPage>
 		</>
 	);
 }

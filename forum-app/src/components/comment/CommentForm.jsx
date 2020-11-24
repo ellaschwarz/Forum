@@ -1,6 +1,7 @@
 import React from 'react';
-import Form from '../form/Form'
+//import Form from '../form/Form'
 
+import {CommentFormDivStyle, FormStyle} from '../form/Form.style'
 export default function CommentForm(props) {
 	const { formData, setFormData } = props;
 
@@ -9,8 +10,9 @@ export default function CommentForm(props) {
 	};
 
 	return (
-		<div>
-			<Form>
+		
+			<CommentFormDivStyle>
+			<FormStyle>
 				<input
 					type='text'
 					name='title'
@@ -27,7 +29,10 @@ export default function CommentForm(props) {
 					placeholder='Write your response ... '
 					required={true}
 				/>
-			</Form>
-		</div>
+				{props.children}
+			</FormStyle>
+			</CommentFormDivStyle>
+
+		
 	);
 }

@@ -1,21 +1,19 @@
-import React, {useEffect, useState, useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-import {AuthContext} from '../../contexts/AuthContext'
+import { AuthContext } from '../../contexts/AuthContext';
 import AuthKit from '../../data/AuthKit';
-import { NavOuterDiv } from './Navbar.style';
+import { NavOuterDiv, Logo, LogoutButton, UserTag } from './Navbar.style';
 
 export default function Navbar(props) {
-  const {auth} = props;
-  const {setAuth} = useContext(AuthContext);
+	const { auth } = props;
+	const { setAuth } = useContext(AuthContext);
 	const [me, setMe] = useState(false);
 
 	const fetchMe = () => {
-		AuthKit
-			.getMe()
+		AuthKit.getMe()
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
 				setMe(data);
 			});
 	};
@@ -24,17 +22,22 @@ export default function Navbar(props) {
 		fetchMe();
 	}, []);
 
-  const handleLogout = () => {
-    AuthKit.removeToken()
-    setAuth(false);
-  }
+	const handleLogout = () => {
+		AuthKit.removeToken();
+		setAuth(false);
+	};
 
 	return (
 		<>
 			<NavOuterDiv>
-         {auth && <Link to="/" onClick={handleLogout}>Logout</Link>}
-        			{auth ? me && <h5>Welcome {me.email}!</h5> : ''}   
-      </NavOuterDiv>
+				{auth && (
+					<Link to='/' onClick={handleLogout}>
+						<LogoutButton>Logout</LogoutButton>
+					</Link>
+				)}
+				{auth ? me && <UserTag>Welcome {me.email}!</UserTag> : ''}
+				<Logo>FORUM</Logo>
+			</NavOuterDiv>
 		</>
 	);
 }

@@ -12,14 +12,14 @@ export default function PostForm(props) {
 		<>
 			<form>
 				<input type='text' name='title' placeholder='Title' value={formData['title']} onChange={handleOnChange}></input>{' '}
-				<input
+				<textarea
 					type='text'
 					name='content'
 					placeholder='Write your post'
 					value={formData['content']}
 					onChange={handleOnChange}
 					required={true}
-				></input>
+				></textarea>
 				<select type='text' name='category' placeholder='Choose a category' onChange={handleOnChange} required={true}>
 					{categories.map((category, index) => {
 						return (

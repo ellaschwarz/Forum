@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import {ListContiner} from '../../components/post/post.style';
+import { ButtonStyle, HomeButton, ListContiner } from '../../components/post/post.style';
 import { PostContext } from '../../contexts/PostContext';
 
 import ForumKit from '../../data/ForumKit';
@@ -26,15 +26,22 @@ export default function List() {
 	}, []);
 
 	return (
-		<ListContiner>
+		<>
+			<Link to='/home'>
+				{' '}
+				<HomeButton>⌂</HomeButton>
+			</Link>
 			<Link to='/posts/create'>
 				{' '}
-				<button>Create new post</button>
+				<ButtonStyle>✎</ButtonStyle>
 			</Link>
-			{postData &&
-				postData.map((postItem, index) => {
-					return <PostItem key={index} itemData={postItem} />;
-				})}
-		</ListContiner>
+
+			<ListContiner>
+				{postData &&
+					postData.reverse().map((postItem, index) => {
+						return <PostItem key={index} itemData={postItem} />;
+					})}
+			</ListContiner>
+		</>
 	);
 }

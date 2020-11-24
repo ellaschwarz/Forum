@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import Comments from '../comment/Comments';
+import {ContentContainer, CreatedTag, IdTitle, PostDetailContainer, PostDetailItem, PTag, TitleTag, UpdatedTag} from './post.style';
 
 export default function PostDetail(props) {
 	const {
@@ -58,20 +59,22 @@ export default function PostDetail(props) {
 
 	return (
 		<>
-			<div>
-				{id ? <h1>{id}. </h1> : ''}
-				{follow ? <h5>FOLLOWING</h5> : ''}
-				{pinned ? <p>📌</p> : ''}
-				{title ? <h1>{handleString(title)}</h1> : ''}
-				{content ? <p>{handleString(content)}</p> : ''}
-				{category ? <p>{category.title}</p> : ''}
-				{viewCount ? <p>Views: {viewCount}</p> : ''}
-				{author ? <p>Author {author.email}</p> : ''}
-				{authorCountry ? <p>{authorCountry}</p> : ''}
-				{createdAt ? <p>Created at {moment(createdAt).format('DD MMM YYYY (HH:mm)')}</p> : ''}
-				{updatedAt ? <p>Updated at {moment(updatedAt).format('DD MMM YYYY (HH:mm)')}</p> : ''}
-			</div>
+			<PostDetailContainer>
+			<PostDetailItem>
+				{authorCountry ? <p>{authorCountry}</p> : ''}	
+				{author ? <p>👤 {author.email}</p> : ''}
+				{viewCount ? <PTag> 👀 {viewCount}</PTag> : ''}
+				{id ? <IdTitle>{id}. </IdTitle> : ''}
+				{title ? <TitleTag>{handleString(title)}</TitleTag> : ''}
+				{createdAt ? <CreatedTag>Created at {moment(createdAt).format('DD MMM YYYY (HH:mm)')}</CreatedTag> : ''}
+				{updatedAt ? <UpdatedTag>Updated at {moment(updatedAt).format('DD MMM YYYY (HH:mm)')}</UpdatedTag> : ''}
+				<ContentContainer>{content ? <p>{handleString(content)}</p> : ''}</ContentContainer>
+				{category ? <PTag>{category.title}</PTag> : ''}
+				{pinned ? <PTag>📌</PTag> : ''}
+				{follow ? <p>FOLLOWING</p> : ''}
+			</PostDetailItem>
 			{open ? <Comments data={props.postDetailData} /> : 'Comment form is currently closed'}
+			</PostDetailContainer>
 		</>
 	);
 }
