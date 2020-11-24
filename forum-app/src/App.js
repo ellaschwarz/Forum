@@ -9,6 +9,7 @@ import CreatePost from './pages/posts/Create';
 import GuardedRoute from './components/GuardedRoute';
 import Home from './pages/home/Home';
 import Login from './pages/authentication/Login';
+import Navbar from './components/navbar/Navbar';
 import PostList from './pages/posts/List';
 import PostDetail from './pages/posts/Detail';
 import Register from './pages/authentication/Register';
@@ -34,6 +35,7 @@ function App() {
 		<>
 			<PostContext.Provider value={{ postData, setPostData }}>
 				<AuthContext.Provider value={{ auth, setAuth }}>
+				<Navbar auth={auth}/>
 					<Switch>
 						<GuardedRoute auth={auth} exact path='/posts/create' component={CreatePost}></GuardedRoute>
 						<GuardedRoute auth={auth} exact path='/posts/:id' component={PostDetail}></GuardedRoute>

@@ -60,4 +60,8 @@ h1, h2, h3, h4, h5 {
   font-weight: 900;
   text-align: center;
 }
+
+a:link {
+  text-decoration: none;
+}
  `;

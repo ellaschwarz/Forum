@@ -59,4 +59,8 @@ export default class Authkit {
 	static getToken() {
 		return localStorage.getItem('JWT_APP');
 	}
+
+	static removeToken() {
+		return localStorage.removeItem('JWT_APP');
+	}
 }

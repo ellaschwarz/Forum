@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 
 import { Link } from 'react-router-dom';
+
+import {ListContiner} from '../../components/post/post.style';
 import { PostContext } from '../../contexts/PostContext';
 
 import ForumKit from '../../data/ForumKit';
@@ -24,7 +26,7 @@ export default function List() {
 	}, []);
 
 	return (
-		<div>
+		<ListContiner>
 			<Link to='/posts/create'>
 				{' '}
 				<button>Create new post</button>
@@ -33,6 +35,6 @@ export default function List() {
 				postData.map((postItem, index) => {
 					return <PostItem key={index} itemData={postItem} />;
 				})}
-		</div>
+		</ListContiner>
 	);
 }
