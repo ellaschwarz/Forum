@@ -66,8 +66,8 @@ export default function PostDetail(props) {
 				{viewCount ? <PTag> 👀 {viewCount}</PTag> : ''}
 				{id ? <IdTitle>{id}. </IdTitle> : ''}
 				{title ? <TitleTag>{handleString(title)}</TitleTag> : ''}
-				{createdAt ? <CreatedTag>Created at {moment(createdAt).format('DD MMM YYYY (HH:mm)')}</CreatedTag> : ''}
-				{updatedAt ? <UpdatedTag>Updated at {moment(updatedAt).format('DD MMM YYYY (HH:mm)')}</UpdatedTag> : ''}
+				{createdAt ? <CreatedTag>Created {moment(createdAt).format('DD MMM YYYY (HH:mm)')}</CreatedTag> : ''}
+				{updatedAt ? <UpdatedTag>Latest update {moment(updatedAt).format('DD MMM YYYY (HH:mm)')}</UpdatedTag> : ''}
 				<ContentContainer>{content ? <p>{handleString(content)}</p> : ''}</ContentContainer>
 				{category ? <PTag>{category.title}</PTag> : ''}
 				{pinned ? <PTag>📌</PTag> : ''}

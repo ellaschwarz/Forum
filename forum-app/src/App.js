@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
-import { PostContext } from './contexts/PostContext';
 import { AuthContext } from './contexts/AuthContext';
+import { PostContext } from './contexts/PostContext';
 
 import AuthKit from './data/AuthKit';
 import CreatePost from './pages/posts/Create';
@@ -10,8 +10,8 @@ import GuardedRoute from './components/GuardedRoute';
 import Home from './pages/home/Home';
 import Login from './pages/authentication/Login';
 import Navbar from './components/navbar/Navbar';
-import PostList from './pages/posts/List';
 import PostDetail from './pages/posts/Detail';
+import PostList from './pages/posts/List';
 import Register from './pages/authentication/Register';
 
 function App() {
@@ -29,13 +29,11 @@ function App() {
 		}
 	}, []);
 
-	console.log(auth);
-
 	return (
 		<>
 			<PostContext.Provider value={{ postData, setPostData }}>
 				<AuthContext.Provider value={{ auth, setAuth }}>
-				<Navbar auth={auth}/>
+					<Navbar auth={auth} />
 					<Switch>
 						<GuardedRoute auth={auth} exact path='/posts/create' component={CreatePost}></GuardedRoute>
 						<GuardedRoute auth={auth} exact path='/posts/:id' component={PostDetail}></GuardedRoute>

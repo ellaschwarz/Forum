@@ -11,7 +11,6 @@ export default class Authkit {
 			email,
 			password
 		};
-		console.log(payload);
 		return fetch(AUTH_URL, {
 			method: 'POST',
 			body: JSON.stringify(payload),
@@ -20,18 +19,18 @@ export default class Authkit {
 	}
 
 	static register(payload) {
-        return fetch(CREATE_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload),
-            headers: this.getPublicHeaders()
-        })
-    }
-    
-    static getCountries() {
-        return fetch(COUNTRIES_URL, {
-            headers: this.getPublicHeaders()
-        })
-    }
+		return fetch(CREATE_URL, {
+			method: 'POST',
+			body: JSON.stringify(payload),
+			headers: this.getPublicHeaders()
+		});
+	}
+
+	static getCountries() {
+		return fetch(COUNTRIES_URL, {
+			headers: this.getPublicHeaders()
+		});
+	}
 
 	static getMe() {
 		return fetch(ME_URL, {

@@ -50,12 +50,13 @@ export default function Create() {
 		<>
 			<Link to='/posts'>
 				{' '}
-				<ButtonStyle>⬅</ButtonStyle>
+				<ButtonStyle>⇤</ButtonStyle>
 			</Link>
 			<PostFormPage>
 				{categories && (
 					<PostContainer>
 						<FormContainer>
+							<h1>New post</h1>
 							<PostForm formData={formData} setFormData={setFormData} categories={categories} setError={setError} />
 						</FormContainer>
 						<PostButton onClick={handleOnClick}>Post</PostButton>

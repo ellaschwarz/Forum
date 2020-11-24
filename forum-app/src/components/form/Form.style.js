@@ -26,4 +26,5 @@ export const FormStyle = styled.div`
 
 export const CommentFormDivStyle = styled(FormDivStyle)`
 	max-width: 80%;
+	box-shadow: none;
 `;

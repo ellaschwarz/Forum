@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-import { CommentButton, CommentContainer, CommentDiv, CommentPageContainer } from './comment.style';
+import {
+	CommentAuthor,
+	CommentButton,
+	CommentContainer,
+	CommentDiv,
+	CommentPageContainer,
+	CommentTime,
+	CommentTitle
+} from './comment.style';
 import CommentForm from './CommentForm';
 import ForumKit from '../../data/ForumKit';
 
@@ -34,13 +42,11 @@ export default function Comments(props) {
 	const fetchResponses = id => {
 		if (responses) {
 			setResponseData(responses);
-			console.log(responses);
 		} else {
 			forumKit
 				.getComments(id)
 				.then(res => res.json())
 				.then(data => {
-					console.log(data);
 					setResponseData(data);
 				});
 		}
@@ -58,9 +64,9 @@ export default function Comments(props) {
 					responseData.reverse().map((response, index) => {
 						return (
 							<CommentDiv key={index}>
-								{response.author ? <h5>{response.author.email}</h5> : ''}
-								<p>{moment(response.createdAt).format('DD-MM-YYYY (HH:mm)')}</p>
-								<h4>{response.title}</h4>
+								{response.author ? <CommentAuthor>{response.author.email} 👤</CommentAuthor> : ''}
+								<CommentTime>{moment(response.createdAt).format('DD-MM-YYYY (HH:mm)')} 🕒</CommentTime>
+								<CommentTitle>{response.title}</CommentTitle>
 								<p>{response.content}</p>
 							</CommentDiv>
 						);

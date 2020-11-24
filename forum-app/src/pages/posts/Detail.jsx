@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import {ButtonStyle} from '../../components/post/post.style';
+import { ButtonStyle } from '../../components/post/post.style';
 import ForumKit from '../../data/ForumKit';
 import PostDetail from '../../components/post/PostDetail';
 
@@ -12,13 +12,12 @@ export default function Detail(props) {
 	const forumKit = new ForumKit();
 	const id = props.match.params.id;
 
-	const fetchSinglePost = (id) => {
+	const fetchSinglePost = id => {
 		forumKit
 			.getSinglePost(id)
 			.then(res => res.json())
 			.then(data => {
 				setPostDetailData(data);
-				console.log(data);
 			});
 	};
 
@@ -27,20 +26,16 @@ export default function Detail(props) {
 	}, []);
 
 	return (
-	
 		<>
-
 			<Link to='/posts'>
 				{' '}
-				<ButtonStyle>⬅</ButtonStyle>
+				<ButtonStyle>⇤</ButtonStyle>
 			</Link>
 			<Link to='/posts/create'>
-			{' '}
-			<ButtonStyle>✎</ButtonStyle>
-		</Link>
-					 {postDetailData && <PostDetail postDetailData={postDetailData} />} 
-	
-
+				{' '}
+				<ButtonStyle>✎</ButtonStyle>
+			</Link>
+			{postDetailData && <PostDetail postDetailData={postDetailData} />}
 		</>
 	);
 }

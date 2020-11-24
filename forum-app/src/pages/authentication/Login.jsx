@@ -5,15 +5,13 @@ import {AuthContext} from '../../contexts/AuthContext'
 import AuthKit from '../../data/AuthKit';
 import Form from '../../components/form/Form';
 import LoginForm from '../../components/login/LoginForm';
-//import Form from '../../components/Form';
 
 export default function Login() {
+	const [authStatus, setAuthStatus] = useState(false)
 	const [emailInput, setEmailInput] = useState('');
 	const [passwordInput, setPasswordInput] = useState('');
-	const [token, setToken] = useState(null);
-	const [authStatus, setAuthStatus] = useState(false)
 	const {setAuth} = useContext(AuthContext);
-	// const authKit = new AuthKit();
+	const [token, setToken] = useState(null);
 
     let history = useHistory();
     
@@ -23,12 +21,10 @@ export default function Login() {
     };
     
 	const handleLogin = (email, password) => {
-		console.log("enter handleLogin")
 		AuthKit
 			.login(email, password)
 			.then(res => res.json())
 			.then(data => {
-				console.log(data)
 				setToken(data.token);
 				AuthKit.setToken(data.token);
 				if (data.token) {

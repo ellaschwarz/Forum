@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { PostContainer, PostInfo, PostTitle, PostTitleContainer } from './post.style';
@@ -7,21 +7,24 @@ import { PostContainer, PostInfo, PostTitle, PostTitleContainer } from './post.s
 export default function PostItem(props) {
 	let id = props.itemData.id;
 
-	const { author, countResponses, createdAt, title, viewCount, isPinned } = props.itemData;
+	const { author, countResponses, createdAt, isPinned, title, viewCount } = props.itemData;
+
+	const history = useHistory()
 
 	const handleString = string => {
 		let handledString = string.replace(/(<([^>]+)>)/gi, ' ');
 		return handledString.substring(0, 200);
 	};
 
+	const handleOnClick = () => {
+		history.push(`/posts/${id}`)
+	}
+
 	return (
 		<>
-			<PostContainer>
+			<PostContainer onClick={handleOnClick}>
 				<PostTitleContainer>
-					<Link to={`/posts/${id}`}>
-						{' '}
 						<PostTitle>{handleString(title)}</PostTitle>
-					</Link>
 				</PostTitleContainer>
 				{author ? <p>Written by: {author.email}</p> : ''}
 				<p>✏️ {moment(createdAt).format('DD MMM YYYY (HH:mm) ')}</p>

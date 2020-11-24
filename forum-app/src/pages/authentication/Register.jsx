@@ -19,14 +19,13 @@ export default function Register() {
 
 	let history = useHistory();
 
-	const handleOnClick = (e) => {
+	const handleOnClick = e => {
 		e.preventDefault();
 		handleRegister(formData);
 	};
 
 	const handleRegister = formData => {
-		AuthKit
-			.register(formData)
+		AuthKit.register(formData)
 			.then(res => res)
 			.then(data => {
 				if (data.status === 201) {
@@ -40,8 +39,7 @@ export default function Register() {
 	};
 
 	const fetchCountries = () => {
-		AuthKit
-			.getCountries()
+		AuthKit.getCountries()
 			.then(res => res.json())
 			.then(data => setCountries(data.results));
 	};
@@ -53,26 +51,25 @@ export default function Register() {
 	return (
 		<>
 			<Form>
-			{countries && (
-				<div>
-					<h3>Create an account to get started</h3>
-					<RegisterForm formData={formData} setFormData={setFormData} countries={countries} />
-
-					<button onClick={handleOnClick}>Register</button>
-					<Link to='/'>
-						{' '}
-						<p>Already have an account? Login</p>
-					</Link>
-					{error &&
-						Object.entries(error).map((err, index) => {
-							return (
-								<p key={index}>
-									{err[0].toUpperCase()}: {err[1]}
-								</p>
-							);
-						})}
-				</div>
-			)}
+				{countries && (
+					<div>
+						<h3>Create an account to get started</h3>
+						<RegisterForm formData={formData} setFormData={setFormData} countries={countries} />
+						<button onClick={handleOnClick}>Register</button>
+						<Link to='/'>
+							{' '}
+							<p>Already have an account? Login</p>
+						</Link>
+						{error &&
+							Object.entries(error).map((err, index) => {
+								return (
+									<p key={index}>
+										{err[0].toUpperCase()}: {err[1]}
+									</p>
+								);
+							})}
+					</div>
+				)}
 			</Form>
 		</>
 	);

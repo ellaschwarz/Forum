@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function PostForm(props) {
-	const { formData, setFormData, categories, setError } = props;
+	const { categories, formData, setError, setFormData } = props;
 
 	const handleOnChange = e => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });

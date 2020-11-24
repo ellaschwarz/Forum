@@ -5,9 +5,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import AuthKit from '../../data/AuthKit';
 import { NavOuterDiv, Logo, LogoutButton, UserTag } from './Navbar.style';
 
-export default function Navbar(props) {
-	const { auth } = props;
-	const { setAuth } = useContext(AuthContext);
+export default function Navbar() {
+	const { auth, setAuth } = useContext(AuthContext);
 	const [me, setMe] = useState(false);
 
 	const fetchMe = () => {
@@ -19,8 +18,10 @@ export default function Navbar(props) {
 	};
 
 	useEffect(() => {
-		fetchMe();
-	}, []);
+			if(auth) {
+				fetchMe();
+			}
+	}, [auth]);
 
 	const handleLogout = () => {
 		AuthKit.removeToken();
@@ -32,10 +33,12 @@ export default function Navbar(props) {
 			<NavOuterDiv>
 				{auth && (
 					<Link to='/' onClick={handleLogout}>
-						<LogoutButton>Logout</LogoutButton>
+						<LogoutButton>
+							<h5>Sign out</h5>
+						</LogoutButton>
 					</Link>
 				)}
-				{auth ? me && <UserTag>Welcome {me.email}!</UserTag> : ''}
+				{auth && me ? <UserTag>Welcome {me.firstName}!</UserTag> : ''}
 				<Logo>FORUM</Logo>
 			</NavOuterDiv>
 		</>
